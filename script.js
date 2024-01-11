@@ -1,4 +1,4 @@
-const panel = document.querySelectorAll('.panel');
+const panels = document.querySelectorAll('.panel');
 let currentAudio = null;
 
 // Add audio elements for each panel
@@ -18,16 +18,21 @@ const audioClips = {
   pokemon: new Audio('pokemon_theme.mp3'),
 };
 
-panel.forEach((panel) => {
+panels.forEach((panel) => {
   panel.addEventListener('click', () => {
     removeActiveClass();
     panel.classList.add('active');
     playSound(panel.id);
   });
+
+  panel.addEventListener('dblclick', () => {
+    stopSound();
+    removeActiveClass();
+  });
 });
 
 function removeActiveClass() {
-  panel.forEach((panel) => {
+  panels.forEach((panel) => {
     panel.classList.remove('active');
   });
 }
@@ -46,5 +51,13 @@ function playSound(panelId) {
       .catch((error) => console.error(`Error playing ${panelId} theme:`, error));
 
     currentAudio = audioClips[panelId];
+  }
+}
+
+function stopSound() {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0; // Reset to the beginning
+    console.log('Music stopped');
   }
 }

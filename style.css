@@ -18,6 +18,9 @@ background-color: rgb(184, 184, 160);
     overflow: hidden;
     margin: 0;
 }
+h1{
+    text-align: center;
+}
 
 .container{
     display: flex;
